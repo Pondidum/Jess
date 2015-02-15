@@ -92,7 +92,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Infrastructure\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
