@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.SelfHost;
 
 namespace Jess.Tests
 {
-	public class SelfHost
+	public class SelfHost : IDisposable
 	{
-		private readonly HttpSelfHostServer _host;
+		private HttpSelfHostServer _host;
 		private readonly Uri _url;
 
 		public SelfHost(int port)
 		{
 			_url = new UriBuilder(Uri.UriSchemeHttp, "localhost", port).Uri;
+		}
+
+		public void Configure(Action<HttpConfiguration> configure)
+		{
 			var config = new HttpSelfHostConfiguration(_url);
 
-			WebApiConfig.Register(config);
+			configure(config);
 
 			_host = new HttpSelfHostServer(config);
 		}
@@ -36,6 +41,11 @@ namespace Jess.Tests
 			return new HttpClient()
 				.SendAsync(request)
 				.Result;
+		}
+
+		public void Dispose()
+		{
+			Stop();
 		}
 	}
 }

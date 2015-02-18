@@ -37,6 +37,12 @@
     <Reference Include="Shouldly">
       <HintPath>..\packages\Shouldly.2.4.0\lib\net40\Shouldly.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4">
+      <HintPath>..\packages\structuremap.3.1.4.143\lib\net40\StructureMap.Net4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
@@ -62,12 +68,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acceptance\Hydration\AcceptanceBase.cs" />
     <Compile Include="Acceptance\Hydration\OnRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfHost.cs" />
     <Compile Include="SelfHostTest.cs" />
+    <Compile Include="Util\AllController.cs" />
+    <Compile Include="Util\HydratorHost.cs" />
+    <Compile Include="Util\RemoteHost.cs" />
+    <Compile Include="Util\RequestInfo.cs" />
+    <Compile Include="Util\StructureMapDependencyResolver.cs" />
+    <Compile Include="Util\StructureMapDependencyScope.cs" />
+    <Compile Include="Util\Wrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
