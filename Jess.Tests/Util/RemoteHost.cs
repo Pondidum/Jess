@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Web.Http;
 using StructureMap;
 using StructureMap.Graph;
@@ -40,6 +41,11 @@ namespace Jess.Tests.Util
 				config.DependencyResolver = new StructureMapDependencyResolver(container);
 
 			});
+		}
+
+		public void RespondsTo(string route, Func<HttpRequestMessage, HttpResponseMessage> response)
+		{
+			_wrapper.Routes[route] = response;
 		}
 	}
 }

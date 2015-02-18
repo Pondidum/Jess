@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -6,18 +7,24 @@ namespace Jess.Tests.Util
 {
 	public class AllController : ApiController
 	{
-		private readonly List<RequestInfo> _recieved;
+		private readonly Wrapper _wrapper;
 
 		public AllController(Wrapper wrapper)
 		{
-			_recieved = wrapper.Recieved;
+			_wrapper = wrapper;
 		}
 
 		public HttpResponseMessage Get(HttpRequestMessage request)
 		{
-			var response = new HttpResponseMessage();
+			Func<HttpRequestMessage, HttpResponseMessage> responseBuilder;
 
-			_recieved.Add(new RequestInfo(request.RequestUri, request, response));
+			_wrapper.Routes.TryGetValue(request.RequestUri.AbsolutePath, out responseBuilder);
+
+			var response = responseBuilder != null
+				? responseBuilder(request)
+				: new HttpResponseMessage(HttpStatusCode.NotFound);
+
+			_wrapper.Recieved.Add(new RequestInfo(request.RequestUri, request, response));
 
 			return response;
 		}

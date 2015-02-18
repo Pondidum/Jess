@@ -8,6 +8,11 @@ namespace Jess.Tests.Acceptance.Hydration
 	public class OnRequest : AcceptanceBase
 	{
 
+		public OnRequest()
+		{
+			Remote.RespondsTo("some/endpoint/234", request => new HttpResponseMessage());
+		}
+
 		[Fact]
 		public void A_request_to_a_server_with_no_hydration_needed()
 		{
