@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using Shouldly;
 using Xunit;
@@ -10,16 +11,25 @@ namespace Jess.Tests.Acceptance.Hydration
 
 		public OnRequest()
 		{
-			Remote.RespondsTo("some/endpoint/234", request => new HttpResponseMessage());
+			Remote.RespondsTo("/some/endpoint/234", request => new HttpResponseMessage(HttpStatusCode.OK));
 		}
 
 		[Fact]
-		public void A_request_to_a_server_with_no_hydration_needed()
+		public void When_requesting_a_valid_remote_url()
 		{
 			var response = Hydrator.MakeRequest("some/endpoint/234", new HttpRequestMessage());
 
 			response.StatusCode.ShouldBe(HttpStatusCode.OK);
+			Remote.Recieved.Count().ShouldBe(1);
+		}
 
+		[Fact]
+		public void When_requesting_an_invalid_remote_url()
+		{
+			var response = Hydrator.MakeRequest("some/endpoint/789", new HttpRequestMessage());
+
+			response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+			Remote.Recieved.Count().ShouldBe(1);
 		}
 	}
 }

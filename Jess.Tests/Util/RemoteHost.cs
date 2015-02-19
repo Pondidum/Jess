@@ -45,6 +45,9 @@ namespace Jess.Tests.Util
 
 		public void RespondsTo(string route, Func<HttpRequestMessage, HttpResponseMessage> response)
 		{
+			if (route.StartsWith("/") == false)
+				route = "/" + route;
+
 			_wrapper.Routes[route] = response;
 		}
 	}
