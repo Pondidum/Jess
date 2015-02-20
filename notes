@@ -1,0 +1,38 @@
+user: GET => http://hydrator/candidate/ref/123
+hydrator: GET => http://service/ref/123
+service: RESPOND {
+	"headers": [
+		{
+			"x-hydrate": "!ref"
+		}
+	],
+	"body": {
+		"name": "andy dote",
+		"documents": [
+			{
+				"!ref": {
+					"id": "abc",
+					"type": "statement"
+				}
+			}
+		]
+	}
+}
+hydrator: /* hydration */
+hydrator: RESPOND {
+	"headers": [],
+	"body": {
+		"name": "andy dote",
+		"documents": [
+			{
+				"id": "abc",
+				"type": "statement",
+				"signedon": "2015-02-20:14:37:44",
+				"signedby": "dave grohl"
+			}
+		]
+	}
+}
+
+
+ "!ref": { "id": "abc", "type":  "statement" }
