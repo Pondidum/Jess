@@ -1,0 +1,12 @@
+﻿{
+    "firstname": "Andy",
+    "surname": "Dote",
+    "documents": [
+        {
+            "!ref": {
+                "id": "abc",
+                "type":  "statement"
+            }
+        }
+    ]
+}

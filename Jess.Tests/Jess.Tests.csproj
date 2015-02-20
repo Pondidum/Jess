@@ -75,14 +75,17 @@
     <Compile Include="RemoteHostTests.cs" />
     <Compile Include="Util\AllController.cs" />
     <Compile Include="Util\HydratorHost.cs" />
+    <Compile Include="Util\JsonResponse.cs" />
     <Compile Include="Util\RemoteHost.cs" />
     <Compile Include="Util\RequestInfo.cs" />
+    <Compile Include="Util\Resource.cs" />
     <Compile Include="Util\StructureMapDependencyResolver.cs" />
     <Compile Include="Util\StructureMapDependencyScope.cs" />
     <Compile Include="Util\Wrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="Data\person-with-one-ref.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
