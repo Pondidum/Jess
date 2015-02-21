@@ -1,38 +1,63 @@
-user: GET => http://hydrator/candidate/ref/123
-hydrator: GET => http://service/ref/123
-service: RESPOND {
-	"headers": [
-		{
-			"x-hydrate": "!ref"
-		}
-	],
-	"body": {
-		"name": "andy dote",
-		"documents": [
-			{
-				"!ref": {
-					"id": "abc",
-					"type": "statement"
-				}
-			}
-		]
-	}
-}
-hydrator: /* hydration */
-hydrator: RESPOND {
-	"headers": [],
-	"body": {
-		"name": "andy dote",
-		"documents": [
-			{
-				"id": "abc",
-				"type": "statement",
-				"signedon": "2015-02-20:14:37:44",
-				"signedby": "dave grohl"
-			}
-		]
-	}
-}
+options:
+	cache => pull | push | hybrid
 
 
- "!ref": { "id": "abc", "type":  "statement" }
+management:
+POST|DELETE|GET : http://hydrator/manage/{cache-name}/{item-id}
+
+hydration:
+*	: http://hydrator/*
+
+
+caching-pull:
+
+	get => hydrator => cache?
+		 yes => hydrate => respond
+		 no => get:cache-url => store:cache => hydrate => respond
+
+caching-push:
+
+	get => hydrator => cache?
+		yes => hydrate => respond
+		no => respond
+
+
+
+flow:
+
+
+user: 			GET => http://hydrator/candidate/ref/123
+hydrator: 	GET => http://service/ref/123
+service:		RESPOND {
+							"headers": [
+								{
+									"x-hydrate": "!ref"
+								}
+							],
+							"body": {
+								"name": "andy dote",
+								"documents": [
+									{
+										"!ref": {
+											"id": "abc",
+											"type": "statement"
+										}
+									}
+								]
+							}
+						}
+hydrator: 	/* hydration */
+hydrator: 	RESPOND {
+							"headers": [],
+							"body": {
+								"name": "andy dote",
+								"documents": [
+									{
+										"id": "abc",
+										"type": "statement",
+										"signedon": "2015-02-20:14:37:44",
+										"signedby": "dave grohl"
+									}
+								]
+							}
+						}
