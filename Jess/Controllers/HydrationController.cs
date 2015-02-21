@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 
@@ -13,8 +14,10 @@ namespace Jess.Controllers
 			var proxyRequest = new HttpRequestMessage
 			{
 				RequestUri = ModifyUri(request.RequestUri),
-				Method = request.Method
+				Method = request.Method,
 			};
+
+			request.Headers.ToList().ForEach(header => proxyRequest.Headers.Add(header.Key, header.Value));
 
 			var response =client
 				.SendAsync(proxyRequest)
