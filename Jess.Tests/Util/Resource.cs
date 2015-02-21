@@ -14,7 +14,7 @@ namespace Jess.Tests.Util
 			}
 		}
 
-		public static string PersonWithOneRef  { get { return AsText(""); } }
+		public static string PersonWithOneRef { get { return AsText("Jess.Tests.Data.person-with-one-ref.json"); } }
 
 	}
 }

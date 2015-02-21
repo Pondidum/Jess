@@ -70,10 +70,12 @@
   <ItemGroup>
     <Compile Include="Acceptance\Hydration\AcceptanceBase.cs" />
     <Compile Include="Acceptance\Hydration\OnRequest.cs" />
+    <Compile Include="Acceptance\Hydration\WhenHydrating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelfHost.cs" />
     <Compile Include="RemoteHostTests.cs" />
     <Compile Include="Util\AllController.cs" />
+    <Compile Include="Util\DehydratedResponse.cs" />
     <Compile Include="Util\HydratorHost.cs" />
     <Compile Include="Util\JsonResponse.cs" />
     <Compile Include="Util\RemoteHost.cs" />
