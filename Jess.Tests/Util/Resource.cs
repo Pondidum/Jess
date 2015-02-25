@@ -16,5 +16,9 @@ namespace Jess.Tests.Util
 
 		public static string PersonWithOneRef { get { return AsText("Jess.Tests.Data.person-with-one-ref.json"); } }
 		public static string PersonWithOneRefHydrated { get { return AsText("Jess.Tests.Data.person-with-one-ref-hydrated.json"); } }
+
+		public static string PersonWithMutlipleRefs { get { return AsText("Jess.Tests.Data.person-with-multiple-refs.json"); } }
+		public static string PersonWithMutlipleRefsHydrated { get { return AsText("Jess.Tests.Data.person-with-multiple-refs-hydrated.json"); } }
+
 	}
 }

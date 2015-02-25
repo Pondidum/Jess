@@ -1,0 +1,24 @@
+﻿{
+    "firstname": "Andy",
+    "surname": "Dote",
+    "documents": [
+        {
+            "!ref": {
+                "id": "abc",
+                "type": "statement"
+            }
+        },
+        {
+            "!ref": {
+                "id": "def",
+                "type":  "statement"
+            }
+        },
+        {
+            "!ref": {
+                "id": "ghi",
+                "type":  "statement"
+            }
+        }
+    ]
+}
