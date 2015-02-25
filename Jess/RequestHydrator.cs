@@ -23,9 +23,9 @@ namespace Jess
 			{
 				var content = inputReader.ReadToEnd();
 
-				var tokenIndex = content.IndexOf(_token);
+				var tokenIndex = -1;
 
-				if (tokenIndex >= 0)
+				while ((tokenIndex = content.IndexOf(_token)) >= 0)
 				{
 					content = ReplaceContent(content, tokenIndex);
 				}

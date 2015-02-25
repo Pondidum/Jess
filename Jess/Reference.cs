@@ -2,7 +2,7 @@ namespace Jess
 {
 	public class Reference
 	{
-		string ID { get; set; }
-		string Type { get; set; }
+		public string ID { get; set; }
+		public string Type { get; set; }
 	}
 }

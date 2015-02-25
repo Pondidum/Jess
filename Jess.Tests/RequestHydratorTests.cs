@@ -18,7 +18,18 @@ namespace Jess.Tests
 		{
 			var cache = Substitute.For<ICache>();
 
-			cache.Get(Arg.Any<Reference>()).Returns("{\"id\": \"abc\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
+			cache
+				.Get(Arg.Is<Reference>(a => a.ID == "abc"))
+				.Returns("{\"id\": \"abc\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
+
+			cache
+				.Get(Arg.Is<Reference>(a => a.ID == "def"))
+				.Returns("{\"id\": \"def\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
+
+			cache
+				.Get(Arg.Is<Reference>(a => a.ID == "ghi"))
+				.Returns("{\"id\": \"ghi\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
+
 
 			_hydrator = new ResponseHydrator(cache, "!ref");
 			_output = new MemoryStream();
@@ -33,9 +44,9 @@ namespace Jess.Tests
 			_output.Position = 0;
 
 			var output = JsonConvert.DeserializeObject(StringFrom(_output));
-			var input = JsonConvert.DeserializeObject(Resource.PersonWithOneRefHydrated);
+			var expected = JsonConvert.DeserializeObject(Resource.PersonWithOneRefHydrated);
 
-			input.ShouldBe(output);
+			expected.ShouldBe(output);
 		}
 
 		[Fact]
@@ -47,9 +58,23 @@ namespace Jess.Tests
 			_output.Position = 0;
 
 			var output = JsonConvert.DeserializeObject(StringFrom(_output));
-			var input = JsonConvert.DeserializeObject(Resource.PersonWithOneRefHydrated);
+			var expected = JsonConvert.DeserializeObject(Resource.PersonWithOneRefHydrated);
 
-			output.ShouldBe(input);
+			output.ShouldBe(expected);
+		}
+
+		[Fact]
+		public void An_input_with_multiple_refs_get_replaced()
+		{
+			_input = StreamFrom(Resource.PersonWithMutlipleRefs);
+			_hydrator.Hydrate(_input, _output);
+
+			_output.Position = 0;
+
+			var output = JsonConvert.DeserializeObject(StringFrom(_output));
+			var expected = JsonConvert.DeserializeObject(Resource.PersonWithMutlipleRefsHydrated);
+
+			output.ShouldBe(expected);
 		}
 
 		public void Dispose()
