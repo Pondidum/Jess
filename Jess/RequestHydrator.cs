@@ -70,13 +70,6 @@ namespace Jess
 		private string TrimBraces(string json)
 		{
 			return json.TrimStart(' ', '{').TrimEnd(' ', '}');
-
 		}
-
-	}
-
-	public interface ICache
-	{
-		string Get(Reference reference);
 	}
 }
