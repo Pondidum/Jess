@@ -19,15 +19,15 @@ namespace Jess.Tests
 			var cache = Substitute.For<ICache>();
 
 			cache
-				.Get(Arg.Is<Reference>(a => a.ID == "abc"))
+				.Get("statement", "abc")
 				.Returns("{\"id\": \"abc\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
 
 			cache
-				.Get(Arg.Is<Reference>(a => a.ID == "def"))
+				.Get("statement", "def")
 				.Returns("{\"id\": \"def\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
 
 			cache
-				.Get(Arg.Is<Reference>(a => a.ID == "ghi"))
+				.Get("statement", "ghi")
 				.Returns("{\"id\": \"ghi\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
 
 

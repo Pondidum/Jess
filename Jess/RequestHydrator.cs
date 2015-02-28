@@ -54,7 +54,7 @@ namespace Jess
 			var sourceJson = content.Substring(startIndex, finishIndex - startIndex + 1);
 			var reference = JsonConvert.DeserializeObject<Reference>(sourceJson);
 
-			var data =_cache.Get(reference);
+			var data =_cache.Get(reference.Type, reference.ID);
 
 			if (string.IsNullOrEmpty(data))
 			{

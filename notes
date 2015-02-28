@@ -3,25 +3,23 @@ options:
 
 
 management:
-POST|DELETE|GET : http://hydrator/manage/{cache-name}/{item-id}
+POST|DELETE|GET : http://hydrator/manage/{type}/{id}
+DELETE : http://hydrator/manage/{type}
+
+{type} & {id} are same as used by the replacement reference data
+
 
 hydration:
 *	: http://hydrator/*
 
 
-caching-pull:
+caching:
 
 	get => hydrator => cache?
 		 yes => hydrate => respond
 		 no => get:cache-url => store:cache => hydrate => respond
 
-caching-push:
-
-	get => hydrator => cache?
-		yes => hydrate => respond
-		no => respond
-
-
+	
 
 flow:
 
