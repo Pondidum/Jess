@@ -1,7 +1,7 @@
 ﻿using System;
 using Jess.Tests.Util;
 
-namespace Jess.Tests.Acceptance.Hydration
+namespace Jess.Tests.Acceptance
 {
 	public class AcceptanceBase : IDisposable
 	{
