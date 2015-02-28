@@ -71,5 +71,11 @@ namespace Jess
 		{
 			return json.TrimStart(' ', '{').TrimEnd(' ', '}');
 		}
+
+		private class Reference
+		{
+			public string ID { get; set; }
+			public string Type { get; set; }
+		}
 	}
 }
