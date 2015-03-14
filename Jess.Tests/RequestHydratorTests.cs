@@ -31,7 +31,7 @@ namespace Jess.Tests
 				.Returns("{\"id\": \"ghi\", \"type\": \"statement\", \"signedon\": \"2015-02-20:14:37:44\", \"signedby\": \"dave grohl\"}");
 
 
-			_hydrator = new ResponseHydrator(cache, "!ref");
+			_hydrator = new ResponseHydrator(cache);
 			_output = new MemoryStream();
 		}
 
@@ -39,7 +39,7 @@ namespace Jess.Tests
 		public void An_input_with_no_replacements_is_unmodified()
 		{
 			_input = StreamFrom(Resource.PersonWithOneRefHydrated);
-			_hydrator.Hydrate(_input, _output);
+			_hydrator.Hydrate("!ref", _input, _output);
 
 			_output.Position = 0;
 
@@ -53,7 +53,7 @@ namespace Jess.Tests
 		public void An_input_with_a_replacement_is_replaced()
 		{
 			_input = StreamFrom(Resource.PersonWithOneRef);
-			_hydrator.Hydrate(_input, _output);
+			_hydrator.Hydrate("!ref", _input, _output);
 
 			_output.Position = 0;
 
@@ -67,7 +67,7 @@ namespace Jess.Tests
 		public void An_input_with_multiple_refs_get_replaced()
 		{
 			_input = StreamFrom(Resource.PersonWithMutlipleRefs);
-			_hydrator.Hydrate(_input, _output);
+			_hydrator.Hydrate("!ref", _input, _output);
 
 			_output.Position = 0;
 

@@ -34,9 +34,11 @@ namespace Jess.Controllers
 
 			if (response.Headers.Contains("X-Hydrate"))
 			{
+				var token = response.Headers.GetValues("X-Hydrate").First();
+
 				response.Content = new PushStreamContent((stream, httpContent, transportContext) =>
 				{
-					_hydrator.Hydrate(response.Content.ReadAsStreamAsync().Result, stream);
+					_hydrator.Hydrate(token, response.Content.ReadAsStreamAsync().Result, stream);
 
 					stream.Flush();
 					stream.Close();

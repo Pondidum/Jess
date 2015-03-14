@@ -9,15 +9,13 @@ namespace Jess
 	public class ResponseHydrator
 	{
 		private readonly ICache _cache;
-		private readonly string _token;
 
-		public ResponseHydrator(ICache cache, string token)
+		public ResponseHydrator(ICache cache)
 		{
 			_cache = cache;
-			_token = token;
 		}
 
-		public void Hydrate(Stream input, Stream output)
+		public void Hydrate(string token, Stream input, Stream output)
 		{
 			using (var inputReader = new StreamReader(input))
 			{
@@ -25,9 +23,9 @@ namespace Jess
 
 				var tokenIndex = -1;
 
-				while ((tokenIndex = content.IndexOf(_token)) >= 0)
+				while ((tokenIndex = content.IndexOf(token)) >= 0)
 				{
-					content = ReplaceContent(content, tokenIndex);
+					content = ReplaceContent(token, content, tokenIndex);
 				}
 
 				var bytes = Encoding.UTF8.GetBytes(content);
@@ -35,16 +33,16 @@ namespace Jess
 			}
 		}
 
-		private string ReplaceContent(string content, int tokenIndex)
+		private string ReplaceContent(string token, string content, int tokenIndex)
 		{
-			var startIndex = content.IndexOf("{", tokenIndex + _token.Length);
+			var startIndex = content.IndexOf("{", tokenIndex + token.Length);
 
 			if (startIndex == -1)
 			{
 				return content;
 			}
 
-			var finishIndex = content.IndexOf("}", startIndex + _token.Length);
+			var finishIndex = content.IndexOf("}", startIndex + token.Length);
 
 			if (finishIndex == -1)
 			{
