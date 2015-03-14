@@ -32,13 +32,16 @@ namespace Jess.Controllers
 				.SendAsync(proxyRequest)
 				.Result;
 
-			response.Content = new PushStreamContent((stream, httpContent, transportContext) =>
+			if (response.Headers.Contains("X-Hydrate"))
 			{
-				_hydrator.Hydrate(response.Content.ReadAsStreamAsync().Result, stream);
+				response.Content = new PushStreamContent((stream, httpContent, transportContext) =>
+				{
+					_hydrator.Hydrate(response.Content.ReadAsStreamAsync().Result, stream);
 
-				stream.Flush();
-				stream.Close();
-			}, response.Content.Headers.ContentType.MediaType);
+					stream.Flush();
+					stream.Close();
+				}, response.Content.Headers.ContentType.MediaType);
+			}
 
 			return response;
 		}
