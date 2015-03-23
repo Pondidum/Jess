@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Jess
 
 				var tokenIndex = -1;
 
-				while ((tokenIndex = content.IndexOf(token)) >= 0)
+				while ((tokenIndex = content.IndexOf(token, tokenIndex + 1,StringComparison.OrdinalIgnoreCase)) >= 0)
 				{
 					content = ReplaceContent(token, content, tokenIndex);
 				}

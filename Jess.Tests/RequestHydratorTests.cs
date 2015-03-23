@@ -74,6 +74,22 @@ namespace Jess.Tests
 			output.ShouldBe(expected);
 		}
 
+		[Fact]
+		public void An_input_with_no_replacement()
+		{
+			_cache
+				.Get("statement", "abc")
+				.Returns("");
+
+			_input = StreamFrom(Resource.PersonWithOneRef);
+			_hydrator.Hydrate("!ref", _input, _output);
+
+			var output = JsonConvert.DeserializeObject(StringFrom(_output));
+			var expected = JsonConvert.DeserializeObject(Resource.PersonWithOneRef);
+
+			output.ShouldBe(expected);
+		}
+
 		public void Dispose()
 		{
 			_output.Dispose();
