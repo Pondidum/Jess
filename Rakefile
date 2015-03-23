@@ -53,10 +53,13 @@ nugets_pack :pack do |n|
 	n.files = FileList["#{project_name}/*.csproj"]
 
 	n.with_metadata do |m|
-		m.description = 'Model based web dashboard'
-		m.authors = 'Andy Dote'
-		m.version = project_version
-	end
+    m.description = 'A hydrator service for json requests, the "Json Edge Side Service".'
+    m.authors = 'Andy Dote'
+    m.project_url = "https://github.com/pondidum/#{project_name}"
+    m.license_url = "https://github.com/Pondidum/#{project_name}/blob/master/LICENSE.txt"
+    m.version = project_version
+    m.tags = 'json hydrator esi edgesideinclude service soa microservice'
+  end
 
 end
 
