@@ -75,6 +75,7 @@
     <Compile Include="Acceptance\Hydration\OnRequest.cs" />
     <Compile Include="Acceptance\Hydration\WhenHydrating.cs" />
     <Compile Include="Acceptance\Management\AllRequestTypes.cs" />
+    <Compile Include="Caches\DefaultCacheTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestHydratorTests.cs" />
     <Compile Include="SelfHost.cs" />

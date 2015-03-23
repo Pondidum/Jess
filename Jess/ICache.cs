@@ -4,7 +4,7 @@
 	{
 		string Get(string type, string id);
 
-		void Add(string json);
+		void Add(string type, string id, string json);
 		void Remove(string type, string id);
 		void Clear(string type);
 	}

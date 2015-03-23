@@ -1,25 +1,44 @@
-﻿namespace Jess.Caches
+﻿using System;
+using System.Collections.Generic;
+using Jess.Infrastructure;
+
+namespace Jess.Caches
 {
 	public class DefaultCache : ICache
 	{
-		public string Get(string type, string id)
+		private readonly Cache<string, Dictionary<string, string>> _caches;
+
+		public DefaultCache()
 		{
-			return "";
+			//oh for some F# types :(
+			_caches = new Cache<string, Dictionary<string, string>>(
+				new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase),
+				key => new Dictionary<string, string>());
 		}
 
-		public void Add(string json)
+		public string Get(string type, string id)
 		{
-			throw new System.NotImplementedException();
+			var cache = _caches[type];
+
+			string json;
+			return cache.TryGetValue(id, out json)
+				? json
+				: string.Empty;
+		}
+
+		public void Add(string type, string id, string json)
+		{
+			_caches[type][id] = json;
 		}
 
 		public void Remove(string type, string id)
 		{
-			throw new System.NotImplementedException();
+			_caches[type].Remove(id);
 		}
 
 		public void Clear(string type)
 		{
-			throw new System.NotImplementedException();
+			_caches[type].Clear();
 		}
 	}
 }
