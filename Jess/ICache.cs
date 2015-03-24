@@ -1,4 +1,6 @@
-﻿namespace Jess
+﻿using System.Collections.Generic;
+
+namespace Jess
 {
 	public interface ICache
 	{
@@ -7,5 +9,7 @@
 		void Add(string type, string id, string json);
 		void Remove(string type, string id);
 		void Clear(string type);
+
+		IEnumerable<CacheStat> GetCacheStats();
 	}
 }

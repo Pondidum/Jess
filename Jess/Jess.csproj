@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CacheStat.cs" />
     <Compile Include="Caches\DefaultCache.cs" />
     <Compile Include="Controllers\HydrationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

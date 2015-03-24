@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Jess.Infrastructure;
 
 namespace Jess.Caches
@@ -39,6 +40,17 @@ namespace Jess.Caches
 		public void Clear(string type)
 		{
 			_caches[type].Clear();
+		}
+
+		public IEnumerable<CacheStat> GetCacheStats()
+		{
+			return _caches
+				.ToDictionary()
+				.Select(d => new CacheStat
+				{
+					Name = d.Key,
+					Count = d.Value.Count
+				});
 		}
 	}
 }
