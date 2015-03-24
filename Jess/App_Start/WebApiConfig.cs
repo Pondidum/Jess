@@ -19,7 +19,7 @@ namespace Jess
 					scan.WithDefaultConventions();
 				});
 
-				c.For<ICache>().Use<DefaultCache>();
+				c.For<ICache>().Use<DefaultCache>().Singleton();
 			});
 
 			config.DependencyResolver = new StructureMapDependencyResolver(container);
@@ -28,9 +28,15 @@ namespace Jess
 			config.MapHttpAttributeRoutes();
 
 			config.Routes.MapHttpRoute(
+				name: "Home",
+				routeTemplate: "",
+				defaults: new {controller = "Manage"}
+			);
+
+			config.Routes.MapHttpRoute(
 				name: "Manage",
 				routeTemplate: "manage/{type}/{id}/",
-				defaults: new { controller = "Manage", id = RouteParameter.Optional }
+				defaults: new { controller = "Manage", type = RouteParameter.Optional, id = RouteParameter.Optional }
 			);
 
 			config.Routes.MapHttpRoute(
