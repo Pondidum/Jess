@@ -13,13 +13,11 @@ namespace Jess.Tests.Acceptance
 			Hydrator = new HydratorHost();
 			Remote = new RemoteHost();
 
-			Hydrator.Start();
-			Remote.Start();
+			//Remote.Start();
 		}
 
 		public void Dispose()
 		{
-			Hydrator.Stop();
 			Remote.Stop();
 		}
 	}
