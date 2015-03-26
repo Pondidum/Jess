@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http.Headers;
+using System.Web.Http;
 using Jess.Caches;
 using Jess.Infrastructure;
 using StructureMap;
@@ -33,8 +34,7 @@ namespace Jess
 
 			config.DependencyResolver = new StructureMapDependencyResolver(container);
 
-			// Web API routes
-			config.MapHttpAttributeRoutes();
+			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
 
 			config.Routes.MapHttpRoute(
 				name: "Home",
