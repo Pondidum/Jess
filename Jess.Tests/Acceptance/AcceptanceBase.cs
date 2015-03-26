@@ -1,4 +1,5 @@
 ﻿using System;
+using Jess.Caches;
 using Jess.Tests.Util;
 
 namespace Jess.Tests.Acceptance
@@ -10,8 +11,8 @@ namespace Jess.Tests.Acceptance
 
 		public AcceptanceBase()
 		{
-			Hydrator = new HydratorHost();
 			Remote = new RemoteHost();
+			Hydrator = new HydratorHost(Remote, new DefaultCache());
 		}
 
 		public void Dispose()

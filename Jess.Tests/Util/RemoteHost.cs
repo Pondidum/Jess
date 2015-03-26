@@ -58,11 +58,6 @@ namespace Jess.Tests.Util
 			_wrapper.Routes[route] = response;
 		}
 
-		public IProxy GetProxy()
-		{
-			return this;
-		}
-
 		public HttpResponseMessage MakeRequest(HttpRequestMessage request)
 		{
 			return _server

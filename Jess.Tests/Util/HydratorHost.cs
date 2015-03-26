@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Web.Http;
+using Jess.Infrastructure;
 using Microsoft.Owin.Testing;
 using Owin;
 
@@ -10,13 +11,13 @@ namespace Jess.Tests.Util
 	{
 		private readonly TestServer _server;
 
-		public HydratorHost()
+		public HydratorHost(IProxy proxy, ICache cache)
 		{
 			_server = TestServer.Create(appBuilder =>
 			{
 				var config = new HttpConfiguration();
 
-				WebApiConfig.Register(config);
+				WebApiConfig.Register(config, proxy, cache);
 
 				appBuilder.UseWebApi(config);
 
