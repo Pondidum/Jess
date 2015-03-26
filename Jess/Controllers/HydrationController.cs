@@ -20,9 +20,11 @@ namespace Jess.Controllers
 		{
 			var client = new HttpClient();
 
+			var upstream = request.Headers.GetValues("X-Upstream").First();
+
 			var proxyRequest = new HttpRequestMessage
 			{
-				RequestUri = ModifyUri(request.RequestUri),
+				RequestUri = ModifyUri(upstream, request.RequestUri),
 				Method = request.Method,
 			};
 
@@ -49,10 +51,10 @@ namespace Jess.Controllers
 			return response;
 		}
 
-		public Uri ModifyUri(Uri request)
+		public Uri ModifyUri(string upstream, Uri request)
 		{
-			var builder = new UriBuilder(request);
-			builder.Port = 48654;
+			var builder = new UriBuilder(upstream);
+			builder.Path = request.PathAndQuery;
 
 			return builder.Uri;
 		}
