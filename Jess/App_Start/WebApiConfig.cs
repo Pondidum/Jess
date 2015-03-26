@@ -10,6 +10,14 @@ namespace Jess
 	{
 		public static void Register(HttpConfiguration config)
 		{
+			Register(
+				config,
+				new DefaultProxy(),
+				new DefaultCache());
+		}
+
+		public static void Register(HttpConfiguration config, IProxy proxy, ICache cache)
+		{
 			// Web API configuration and services
 			var container = new Container(c =>
 			{
@@ -19,7 +27,8 @@ namespace Jess
 					scan.WithDefaultConventions();
 				});
 
-				c.For<ICache>().Use<DefaultCache>().Singleton();
+				c.For<ICache>().Use(cache);
+				c.For<IProxy>().Use(proxy);
 			});
 
 			config.DependencyResolver = new StructureMapDependencyResolver(container);
@@ -30,7 +39,7 @@ namespace Jess
 			config.Routes.MapHttpRoute(
 				name: "Home",
 				routeTemplate: "",
-				defaults: new {controller = "Manage"}
+				defaults: new { controller = "Manage" }
 			);
 
 			config.Routes.MapHttpRoute(
