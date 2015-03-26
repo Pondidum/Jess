@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Jess.Caches;
 using Jess.Tests.Util;
 
@@ -19,6 +20,13 @@ namespace Jess.Tests.Acceptance
 		{
 			Hydrator.Dispose();
 			Remote.Dispose();
+		}
+
+		protected HttpRequestMessage BuildMessage(HttpRequestMessage request)
+		{
+			request.Headers.Add("X-Upstream", "http://remotehost/");
+
+			return request;
 		}
 	}
 }

@@ -4,22 +4,23 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Jess.Infrastructure;
 
 namespace Jess.Controllers
 {
 	public class HydrationController : ApiController
 	{
+		private readonly IProxy _proxy;
 		private readonly ResponseHydrator _hydrator;
 
-		public HydrationController(ResponseHydrator hydrator)
+		public HydrationController(IProxy proxy, ResponseHydrator hydrator)
 		{
+			_proxy = proxy;
 			_hydrator = hydrator;
 		}
 
 		public HttpResponseMessage Get(HttpRequestMessage request)
 		{
-			var client = new HttpClient();
-
 			var upstream = request.Headers.GetValues("X-Upstream").First();
 
 			var proxyRequest = new HttpRequestMessage
@@ -30,9 +31,7 @@ namespace Jess.Controllers
 
 			request.Headers.ToList().ForEach(header => proxyRequest.Headers.Add(header.Key, header.Value));
 
-			var response = client
-				.SendAsync(proxyRequest)
-				.Result;
+			var response = _proxy.MakeRequest(proxyRequest);
 
 			if (response.Headers.Contains("X-Hydrate"))
 			{

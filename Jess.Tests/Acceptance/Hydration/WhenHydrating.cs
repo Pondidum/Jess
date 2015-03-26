@@ -22,7 +22,7 @@ namespace Jess.Tests.Acceptance.Hydration
 		[Fact]
 		public void Without_a_hydrate_header()
 		{
-			var response = Hydrator.MakeRequest("/candidate/ref/456", new HttpRequestMessage());
+			var response = Hydrator.MakeRequest("/candidate/ref/456", BuildMessage(new HttpRequestMessage()));
 
 			var body = response.Content.ReadAsStringAsync().Result;
 
