@@ -15,14 +15,13 @@ namespace Jess.Tests
 		public RemoteHostTests()
 		{
 			_remote = new RemoteHost();
-			_remote.Start();
 		}
 
 		[Fact]
 		public void Remote_logs_values()
 		{
 			_remote
-				.MakeRequest("", new HttpRequestMessage());
+				.MakeRequest(new HttpRequestMessage());
 
 			_remote.Recieved.ShouldNotBeEmpty();
 		}
@@ -35,7 +34,7 @@ namespace Jess.Tests
 			_remote.RespondsTo("/test/some/route", req => response);
 
 			_remote
-				.MakeRequest("test/some/route", new HttpRequestMessage())
+				.MakeRequest(new HttpRequestMessage { RequestUri = new Uri("http://remote/test/some/route") })
 				.StatusCode
 				.ShouldBe(HttpStatusCode.OK);
 
@@ -46,7 +45,7 @@ namespace Jess.Tests
 		{
 			try
 			{
-				_remote.Stop();
+				_remote.Dispose();
 			}
 			catch (Exception)
 			{

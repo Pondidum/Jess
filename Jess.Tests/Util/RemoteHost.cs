@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Web.Http;
+using Jess.Infrastructure;
+using Microsoft.Owin.Testing;
+using Owin;
 using StructureMap;
 using StructureMap.Graph;
 
 namespace Jess.Tests.Util
 {
-	public class RemoteHost : SelfHost
+	public class RemoteHost : IProxy, IDisposable
 	{
-		public IEnumerable<RequestInfo> Recieved { get { return _wrapper.Recieved;  } }
+		public IEnumerable<RequestInfo> Recieved { get { return _wrapper.Recieved; } }
 
 		private Wrapper _wrapper;
+		private readonly TestServer _server;
 
 		public RemoteHost()
-			: base(48654)
 		{
-
-			Configure(config =>
+			_server = TestServer.Create(appBuilder =>
 			{
+
+				var config = new HttpConfiguration();
+
 				config.Routes.MapHttpRoute(
 					name: "Default",
 					routeTemplate: "{*url}",
@@ -40,7 +45,9 @@ namespace Jess.Tests.Util
 
 				config.DependencyResolver = new StructureMapDependencyResolver(container);
 
+				appBuilder.UseWebApi(config);
 			});
+
 		}
 
 		public void RespondsTo(string route, Func<HttpRequestMessage, HttpResponseMessage> response)
@@ -49,6 +56,24 @@ namespace Jess.Tests.Util
 				route = "/" + route;
 
 			_wrapper.Routes[route] = response;
+		}
+
+		public IProxy GetProxy()
+		{
+			return this;
+		}
+
+		public HttpResponseMessage MakeRequest(HttpRequestMessage request)
+		{
+			return _server
+				.HttpClient
+				.SendAsync(request)
+				.Result;
+		}
+
+		public void Dispose()
+		{
+			_server.Dispose();
 		}
 	}
 }
