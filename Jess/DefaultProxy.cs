@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace Jess.Infrastructure
+namespace Jess
 {
 	public class DefaultProxy : IProxy
 	{

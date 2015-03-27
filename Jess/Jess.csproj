@@ -96,9 +96,9 @@
     <Compile Include="Headers.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="Infrastructure\Cache.cs" />
-    <Compile Include="Infrastructure\DefaultProxy.cs" />
+    <Compile Include="DefaultProxy.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
-    <Compile Include="Infrastructure\IProxy.cs" />
+    <Compile Include="IProxy.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyScope.cs" />
     <Compile Include="MissingHeaderException.cs" />
