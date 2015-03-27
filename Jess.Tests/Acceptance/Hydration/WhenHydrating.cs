@@ -1,5 +1,8 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net;
+using System.Net.Http;
 using Jess.Tests.Util;
+using Newtonsoft.Json;
 using Shouldly;
 using Xunit;
 
@@ -30,5 +33,13 @@ namespace Jess.Tests.Acceptance.Hydration
 			body.ShouldBe(Resource.PersonWithOneRef);
 		}
 
+		[Fact]
+		public void When_the_request_has_no_upstream_header()
+		{
+			var response = Hydrator.MakeRequest("/candidate/ref/456", new HttpRequestMessage());
+
+			response.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
+			//in-memory doesnt give you the full exception back?
+		}
 	}
 }
