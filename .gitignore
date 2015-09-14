@@ -16,5 +16,6 @@ AssemblyVersion.cs
 
 packages
 build
+.vs
 
 *.sublime-workspace
